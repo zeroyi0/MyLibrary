@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mylibrary.dao.UserMapper">
+
+    <!-- 结果映射，把返回结果对象的属性名和数据库当中的字段名进行映射 -->
+    <resultMap id="user" type="mylibrary.model.User">
+        <id property="userId" column="u_id"></id>
+        <result property="userName" column="u_name"></result>
+        <result property="passWord" column="u_pwd"></result>
+        <result property="email" column="u_mailBox"></result>
+        <result property="identity" column="u_identity"></result>
+    </resultMap>
+
+    <insert id="addUser" parameterType="mylibrary.model.User">
+        INSERT INTO BookUser(u_id, u_name, u_pwd, u_identity, u_mailBox)
+          VALUES(#{userId}, #{userName},#{passWord},#{identity},#{email})
+    </insert>
+
+    <!--<select id="findUserCount" resultType="int">-->
+        <!--SELECT COUNT(1) FROM User;-->
+    <!--</select>-->
+
+    <select id="findUserByName" resultMap="user" parameterType="java.lang.String">
+        SELECT u_id, u_name, u_pwd, u_identity, u_mailBox FROM BookUser WHERE u_name=#{userName}   -- ${userName}
+    </select>
+
+    <!-- resultType 返回的类的类型 -->
+    <!-- resultMap 返回结果对应的结果映射 -->
+    <select id="findByUserId" resultMap="user" parameterType="java.lang.Long">
+        SELECT u_id, u_name, u_pwd, u_identity, u_mailBox FROM BookUser WHERE u_id=#{userId}
+    </select>
+
+    <select id="findAllUsers" resultMap="user">
+        SELECT u_id, u_name, u_pwd, u_identity, u_mailBox FROM BookUser
+    </select>
+
+</mapper>

@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mylibrary.dao.BookMapper">
+
+    <resultMap id="book" type="mylibrary.model.Book">
+        <id property="bookId" column="b_id"></id>
+        <result property="bookName" column="b_name"></result>
+        <result property="author" column="b_author"></result>
+        <result property="publisher" column="b_publish"></result>
+        <result property="bookPrice" column="b_price"></result>
+        <result property="classify" column="b_classify"></result>
+        <result property="bookShelf" column="b_shelf"></result>
+        <result property="bookISBN" column="b_ISBN"></result>
+        <result property="bookStatus" column="b_status"></result>
+        <result property="enterLibTime" column="b_enterLibTime"></result>
+    </resultMap>
+
+    <select id="findBookById" resultType="mylibrary.model.Book" parameterType="java.lang.Long">
+        SELECT b_id, b_name, b_author, b_publish, b_price, b_classify, b_shelf, b_ISBN, b_status, b_enterLibTime FROM BookInfo
+        WHERE b_id=#{bookId}
+    </select>
+
+    <select id="findAllBook" resultType="java.util.List">
+        SELECT b_id, b_name, b_author, b_publish, b_shelf, b_status FROM BookInfo
+    </select>
+
+
+</mapper>

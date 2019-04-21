@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!-- 扫描模型 -->
+    <typeAliases>
+        <package name="mylibrary.model"></package>
+    </typeAliases>
+
+    <!-- 完全替换 -->
+    <!--<properties resource="mylibrary/mapper/Iml/db.yml"></properties>-->
+    <!--<environments default="development">-->
+        <!--<environment id="development">-->
+            <!--<transactionManager type="JDBC"/>-->
+            <!--<dataSource type="POOLED">-->
+                <!--<property name="driver" value="${driver}"/>-->
+                <!--<property name="url" value="${url}"/>-->
+                <!--<property name="username" value="${username}"/>-->
+                <!--<property name="password" value="${password}"/>-->
+            <!--</dataSource>-->
+        <!--</environment>-->
+        <!--id="development"-->
+        <!--<environment id="test">-->
+            <!--<transactionManager type="JDBC"/>-->
+            <!--<dataSource type="POOLED">-->
+                <!--<property name="driver" value="${driver}"/>-->
+                <!--<property name="url" value="${url}"/>-->
+                <!--<property name="username" value="${username}"/>-->
+                <!--<property name="password" value="${password}"/>-->
+            <!--</dataSource>-->
+        <!--</environment>&lt;!&ndash;id="test"&ndash;&gt;-->
+    <!--</environments>-->
+    <mappers>
+        <!-- 映射地址（需要很多个） -->
+        <!--<mapper resource="UserMapper.xml"/>-->
+        <!--<mapper resource="mylibrary/mapper/Iml/LoginMapper.xml"/>-->
+    </mappers>
+</configuration>
