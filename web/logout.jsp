@@ -19,11 +19,28 @@
         .bkground {
             background-image: url("imgs/login2.jpg")
         }
+        .logoutTitle {
+            position: relative;
+            margin: 8% 30%;
+            background-color: #FFF3E1;
+            padding: 1% 2%;
+            text-align: center;
+            font-size: 25px;
+        }
+        .loginAgain {
+            position: absolute;
+            right: 10%;
+            bottom: 0%;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body class="bkground">
-    <div>
-        <h2>注销成功</h2>
+    <div class="logoutTitle">
+        您已成功退出XX图书管理系统
+        <div class="loginAgain">
+            <a href="./index.jsp">重新登陆</a>
+        </div>
     </div>
 
 </body>

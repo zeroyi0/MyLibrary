@@ -16,15 +16,11 @@ public class User {
     @TableField("u_mailBox")
     private String email;
 
-    public User() {}
+    private String userSex;
 
-    public User(Long userId, String userName, String passWord, String identity, String email) {
-        this.userId = userId;
-        this.userName = userName;
-        this.passWord = passWord;
-        this.identity = identity;
-        this.email = email;
-    }
+    private String registerTime;
+
+    public User() {}
 
     public Long getUserId() {
         return userId;
@@ -64,5 +60,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
+    }
+
+    public String getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(String registerTime) {
+        this.registerTime = registerTime;
     }
 }

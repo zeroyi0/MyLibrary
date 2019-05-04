@@ -13,18 +13,50 @@
         <result property="classify" column="b_classify"></result>
         <result property="bookShelf" column="b_shelf"></result>
         <result property="bookISBN" column="b_ISBN"></result>
-        <result property="bookStatus" column="b_status"></result>
         <result property="enterLibTime" column="b_enterLibTime"></result>
+        <result property="createTime" column="b_createTime"></result>
+        <result property="bookInfo" column="b_info"></result>
+        <result property="bookPicture" column="b_pic"></result>
+        <!-- 在类不在mysql -->
+        <result property="bookStatus" column="b_status"></result>
     </resultMap>
+    <delete id="deleteBook">
+        DELETE FROM BookInfo WHERE b_id=#{bookId}
+    </delete>
 
-    <select id="findBookById" resultType="mylibrary.model.Book" parameterType="java.lang.Long">
-        SELECT b_id, b_name, b_author, b_publish, b_price, b_classify, b_shelf, b_ISBN, b_status, b_enterLibTime FROM BookInfo
-        WHERE b_id=#{bookId}
+    <select id="findBookById" resultMap="book" parameterType="java.lang.Long">
+        SELECT b.*, IF(EXISTS (SELECT 1 FROM BookBor bor WHERE bor.b_id=b.b_id AND bor.bor_returnTime IS NULL), '已借出', '在架上')AS b_status FROM BookInfo b
+        WHERE b.b_id=#{bookId}
     </select>
 
-    <select id="findAllBook" resultType="java.util.List">
-        SELECT b_id, b_name, b_author, b_publish, b_shelf, b_status FROM BookInfo
+    <select id="findAllBook" resultMap="book" parameterType="java.lang.Integer">
+        --  , 后面是新建一列
+        SELECT b.*, IF(EXISTS(SELECT 1 FROM BookBor bor WHERE bor.b_id=b.b_id AND bor.bor_returnTime IS NULL), '已借出', '在架上')AS b_status FROM BookInfo b LIMIT #{index}, 15
     </select>
 
-
+    <select id="findSomeBook" resultMap="book">
+        SELECT b.*, IF(EXISTS(SELECT 1 FROM BookBor bor WHERE bor.b_id=b.b_id AND bor.bor_returnTime IS NULL), '已借出', '在架上')AS b_status FROM BookInfo b
+        <where>
+            <choose>
+                <when test="condition == 'b_name'">
+                    AND b.b_name like #{content}
+                </when>
+                <when test="condition == 'b_author'">
+                    AND b.b_author like #{content}
+                </when>
+                <when test="condition == 'b_publish'">
+                    AND b.b_publish like #{content}
+                </when>
+                <when test="condition == 'b_classify'">
+                    AND b.b_classify like #{content}
+                </when>
+                <otherwise>
+                    AND b.b_name like #{content} OR b.b_author like #{content} OR b.b_publish like #{content} OR b.b_classify like #{content}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+    <select id="getPageNum" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM BookInfo
+    </select>
 </mapper>

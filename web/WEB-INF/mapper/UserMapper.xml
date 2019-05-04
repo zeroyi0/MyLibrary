@@ -8,32 +8,42 @@
     <resultMap id="user" type="mylibrary.model.User">
         <id property="userId" column="u_id"></id>
         <result property="userName" column="u_name"></result>
+        <result property="userSex" column="u_sex"></result>
         <result property="passWord" column="u_pwd"></result>
         <result property="email" column="u_mailBox"></result>
         <result property="identity" column="u_identity"></result>
+        <result property="registerTime" column="u_regTime"></result><!--注册时间-->
     </resultMap>
 
     <insert id="addUser" parameterType="mylibrary.model.User">
-        INSERT INTO BookUser(u_id, u_name, u_pwd, u_identity, u_mailBox)
-          VALUES(#{userId}, #{userName},#{passWord},#{identity},#{email})
+        INSERT INTO BookUser(u_name, u_sex, u_pwd, u_identity, u_mailBox, u_regTime)
+          VALUES(#{userName}, #{userSex}, #{passWord}, #{identity},#{email}, NOW())
     </insert>
+
+    <update id="updateIdentity">
+        UPDATE BookUser SET u_identity=#{1} WHERE u_id=#{0}
+    </update>
 
     <!--<select id="findUserCount" resultType="int">-->
         <!--SELECT COUNT(1) FROM User;-->
     <!--</select>-->
 
     <select id="findUserByName" resultMap="user" parameterType="java.lang.String">
-        SELECT u_id, u_name, u_pwd, u_identity, u_mailBox FROM BookUser WHERE u_name=#{userName}   -- ${userName}
+        SELECT u_id, u_name, u_sex, u_pwd, u_identity, u_mailBox FROM BookUser WHERE u_name=#{userName}   -- ${userName}
     </select>
 
     <!-- resultType 返回的类的类型 -->
     <!-- resultMap 返回结果对应的结果映射 -->
     <select id="findByUserId" resultMap="user" parameterType="java.lang.Long">
-        SELECT u_id, u_name, u_pwd, u_identity, u_mailBox FROM BookUser WHERE u_id=#{userId}
+        SELECT u_id, u_name, u_sex, u_pwd, u_identity, u_mailBox FROM BookUser WHERE u_id=#{userId}
     </select>
 
     <select id="findAllUsers" resultMap="user">
-        SELECT u_id, u_name, u_pwd, u_identity, u_mailBox FROM BookUser
+        SELECT u_id, u_name, u_sex, u_pwd, u_identity, u_mailBox, u_regTime FROM BookUser
+    </select>
+
+    <select id="findAllAdmin" resultMap="user">
+        SELECT u_id, u_name, u_sex, u_pwd, u_identity, u_mailBox, u_regTime FROM BookUser WHERE u_identity=#{identity}
     </select>
 
 </mapper>

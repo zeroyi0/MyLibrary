@@ -894,223 +894,346 @@
     <table id="223" parent="3" name="Book">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="224" parent="3" name="BookInfo"/>
-    <table id="225" parent="3" name="BorrowBkInfo">
+    <table id="224" parent="3" name="BookBor">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="226" parent="3" name="Remark"/>
-    <table id="227" parent="3" name="User">
+    <table id="225" parent="3" name="BookInfo"/>
+    <table id="226" parent="3" name="BookUser">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <column id="228" parent="223" name="bookId">
+    <table id="227" parent="3" name="BorrowBkInfo">
+      <Collation>utf8_general_ci</Collation>
+    </table>
+    <table id="228" parent="3" name="Remark"/>
+    <table id="229" parent="3" name="User">
+      <Collation>utf8_general_ci</Collation>
+    </table>
+    <column id="230" parent="223" name="bookId">
       <Position>1</Position>
       <DataType>int(10)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="229" parent="223" name="bookName">
+    <column id="231" parent="223" name="bookName">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="230" parent="223" name="author">
+    <column id="232" parent="223" name="author">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="231" parent="223" name="bookNum">
+    <column id="233" parent="223" name="bookNum">
       <Position>4</Position>
       <DataType>smallint(10)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="232" parent="223" name="borrowOut">
+    <column id="234" parent="223" name="borrowOut">
       <Position>5</Position>
       <DataType>smallint(10)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="233" parent="223" name="information">
+    <column id="235" parent="223" name="information">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="234" parent="223" name="PRIMARY">
+    <key id="236" parent="223" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>bookId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="235" parent="224" name="b_id">
+    <column id="237" parent="224" name="bor_id">
       <Position>1</Position>
-      <DataType>int(20)|0s</DataType>
+      <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="236" parent="224" name="b_name">
+    <column id="238" parent="224" name="bor_time">
       <Position>2</Position>
-      <DataType>varchar(50)|0s</DataType>
+      <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="237" parent="224" name="b_author">
+    <column id="239" parent="224" name="u_id">
       <Position>3</Position>
-      <DataType>varchar(50)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="238" parent="224" name="b_publish">
-      <Position>4</Position>
-      <DataType>varchar(50)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="239" parent="224" name="b_price">
-      <Position>5</Position>
-      <DataType>decimal(10,2 digit)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="240" parent="224" name="b_classify">
-      <Position>6</Position>
-      <DataType>varchar(30)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="241" parent="224" name="b_shelf">
-      <Position>7</Position>
-      <DataType>varchar(30)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="242" parent="224" name="b_ISBN">
-      <Position>8</Position>
-      <DataType>varchar(20)|0s</DataType>
+      <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="224" name="b_status">
-      <Position>9</Position>
+    <column id="240" parent="224" name="b_id">
+      <Position>4</Position>
+      <DataType>bigint(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="241" parent="224" name="bor_shouldReturn">
+      <Position>5</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="242" parent="224" name="bor_isReturn">
+      <Position>6</Position>
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>&apos;未归还&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="224" name="b_enterLibTime">
-      <Position>10</Position>
-      <DataType>varchar(20)|0s</DataType>
+    <column id="243" parent="224" name="bor_returnTime">
+      <Position>7</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="244" parent="224" name="bor_renew">
+      <Position>8</Position>
+      <DataType>tinyint(3)|0s</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="245" parent="224" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
+      <ColNames>bor_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="246" parent="225" name="b_id">
+      <Position>1</Position>
+      <DataType>bigint(20) unsigned|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="247" parent="225" name="b_name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="248" parent="225" name="b_author">
+      <Position>3</Position>
+      <DataType>varchar(50)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="249" parent="225" name="b_publish">
+      <Position>4</Position>
+      <DataType>varchar(50)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="250" parent="225" name="b_price">
+      <Position>5</Position>
+      <DataType>decimal(10,2 digit)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="251" parent="225" name="b_classify">
+      <Position>6</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="252" parent="225" name="b_shelf">
+      <Position>7</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="253" parent="225" name="b_ISBN">
+      <Position>8</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="254" parent="225" name="b_enterLibTime">
+      <Position>9</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="255" parent="225" name="b_createTime">
+      <Position>10</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="256" parent="225" name="b_info">
+      <Position>11</Position>
+      <DataType>varchar(500)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="257" parent="225" name="b_pic">
+      <Position>12</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="258" parent="225" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>b_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="246" parent="225" name="borrowTime">
+    <column id="259" parent="226" name="u_id">
+      <Position>1</Position>
+      <DataType>bigint(15) unsigned|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="260" parent="226" name="u_name">
+      <Position>2</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="261" parent="226" name="u_sex">
+      <Position>3</Position>
+      <DataType>varchar(4)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="262" parent="226" name="u_pwd">
+      <Position>4</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="263" parent="226" name="u_identity">
+      <Position>5</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="264" parent="226" name="u_mailBox">
+      <Position>6</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="265" parent="226" name="u_regTime">
+      <Position>7</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="266" parent="226" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>u_id
+u_name</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="267" parent="227" name="borrowTime">
       <Position>1</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="247" parent="225" name="userId">
+    <column id="268" parent="227" name="userId">
       <Position>2</Position>
       <DataType>int(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="248" parent="225" name="userName">
+    <column id="269" parent="227" name="userName">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="225" name="bookId">
+    <column id="270" parent="227" name="bookId">
       <Position>4</Position>
       <DataType>int(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="225" name="bookName">
+    <column id="271" parent="227" name="bookName">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="251" parent="225" name="isReturnBook">
+    <column id="272" parent="227" name="isReturnBook">
       <Position>6</Position>
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;否&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="225" name="returnTime">
+    <column id="273" parent="227" name="returnTime">
       <Position>7</Position>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="253" parent="225" name="PRIMARY">
+    <key id="274" parent="227" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>borrowTime</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="254" parent="226" name="id">
+    <column id="275" parent="228" name="id">
       <Position>1</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="226" name="null">
+    <column id="276" parent="228" name="null">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="256" parent="226" name="remark">
+    <column id="277" parent="228" name="remark">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="226" name="null1">
+    <column id="278" parent="228" name="null1">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="226" name="null2">
+    <column id="279" parent="228" name="null2">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="259" parent="226" name="PRIMARY">
+    <key id="280" parent="228" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="260" parent="227" name="u_id">
+    <column id="281" parent="229" name="u_id">
       <Position>1</Position>
-      <DataType>int(10) unsigned|0s</DataType>
+      <DataType>int(12) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="227" name="u_name">
+    <column id="282" parent="229" name="u_name">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="262" parent="227" name="u_pwd">
+    <column id="283" parent="229" name="u_sex">
       <Position>3</Position>
-      <DataType>varchar(20)|0s</DataType>
-      <NotNull>1</NotNull>
+      <DataType>varchar(6)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="263" parent="227" name="u_identity">
+    <column id="284" parent="229" name="u_pwd">
       <Position>4</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="264" parent="227" name="u_mailBox">
+    <column id="285" parent="229" name="u_identity">
       <Position>5</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="286" parent="229" name="u_mailBox">
+      <Position>6</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="265" parent="227" name="PRIMARY">
+    <key id="287" parent="229" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>u_id
 u_name</ColNames>

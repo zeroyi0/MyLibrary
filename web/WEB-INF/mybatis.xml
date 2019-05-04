@@ -5,6 +5,11 @@
 
 <configuration>
 
+    <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
     <!-- 扫描模型 -->
     <typeAliases>
         <package name="mylibrary.model"></package>
@@ -33,9 +38,10 @@
             <!--</dataSource>-->
         <!--</environment>&lt;!&ndash;id="test"&ndash;&gt;-->
     <!--</environments>-->
-    <mappers>
-        <!-- 映射地址（需要很多个） -->
-        <!--<mapper resource="UserMapper.xml"/>-->
-        <!--<mapper resource="mylibrary/mapper/Iml/LoginMapper.xml"/>-->
-    </mappers>
+    <!--<mappers>-->
+        <!--&lt;!&ndash; 映射地址（需要很多个） &ndash;&gt;-->
+        <!--&lt;!&ndash;<mapper resource="UserMapper.xml"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapper resource="mylibrary/mapper/Iml/LoginMapper.xml"/>&ndash;&gt;-->
+    <!--</mappers>-->
+
 </configuration>

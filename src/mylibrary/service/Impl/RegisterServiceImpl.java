@@ -25,4 +25,13 @@ public class RegisterServiceImpl implements RegisterService {
         }
         return RegisterStatus.FAIL;
     }
+
+    @Override
+    public boolean chgIdentity(Long userId, String identity) {
+        int row = userMapper.updateIdentity(userId, identity);
+        if (row > 0) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mylibrary.dao.BorBkMapper">
+
+    <resultMap id="borBk" type="mylibrary.model.BorBk">
+        <id property="borId" column="bor_id"></id>
+        <result property="borrowTime" column="bor_time"></result>
+        <result property="isReturnBk" column="bor_isReturn"></result>
+        <result property="returnTime" column="bor_returnTime"></result>
+        <result property="shouldReturn" column="bor_shouldReturn"></result>
+        <result property="renew" column="bor_renew"></result>
+         <!--不在数据库-->
+        <result property="notReturnOnTime" column="bor_notReturn"></result>
+        <association property="user" javaType="mylibrary.model.User">
+            <id property="userId" column="u_id"></id>
+            <result property="userName" column="u_name"></result>
+            <result property="userSex" column="u_sex"></result>
+            <result property="passWord" column="u_pwd"></result>
+            <result property="email" column="u_mailBox"></result>
+            <result property="identity" column="u_identity"></result>
+        </association>
+        <association property="book" resultMap="book"></association>
+    </resultMap>
+
+    <resultMap id="book" type="mylibrary.model.Book">
+        <id property="bookId" column="b_id"></id>
+        <result property="bookName" column="b_name"></result>
+        <result property="author" column="b_author"></result>
+        <result property="publisher" column="b_publish"></result>
+        <result property="bookPrice" column="b_price"></result>
+        <result property="classify" column="b_classify"></result>
+        <result property="bookShelf" column="b_shelf"></result>
+        <result property="bookISBN" column="b_ISBN"></result>
+        <result property="enterLibTime" column="b_enterLibTime"></result>
+        <result property="createTime" column="b_createTime"></result>
+        <result property="bookInfo" column="b_info"></result>
+    </resultMap>
+
+    <insert id="addBorBook" parameterType="mylibrary.model.BorBk">
+        INSERT INTO BookBor(bor_time, u_id, b_id, bor_isReturn, bor_returnTime, bor_shouldReturn)
+        VALUES (#{borrowTime}, #{user.userId}, #{book.bookId}, #{isReturnBk}, #{returnTime},#{shouldReturn})
+    </insert>
+
+    <update id="updateBorBk">
+        UPDATE BookBor SET bor_shouldReturn=#{1}, bor_renew=#{2} WHERE bor_id=#{0}
+    </update>
+
+    <update id="updateBorBk2">
+        UPDATE BookBor SET bor_returnTime=#{1}, bor_isReturn=#{2} WHERE bor_id=#{0}
+    </update>
+
+    <select id="findAllBorBk" resultMap="borBk" parameterType="java.lang.Long">
+        SELECT bor.bor_id, bor.bor_time, bor.b_id, bor.bor_isReturn, bor.bor_returnTime, bor.bor_shouldReturn, bor.bor_renew, b.b_name FROM BookBor bor
+        LEFT JOIN BookInfo b ON b.b_id=bor.b_id
+        WHERE bor.u_id=#{userId}
+    </select>
+
+    <select id="findBkNotReturn" resultMap="borBk">
+        SELECT bor.bor_id, bor.bor_time, bor.b_id, bor.bor_isReturn, bor.bor_returnTime, bor.bor_shouldReturn, bor.bor_renew, b.b_name, b.b_author FROM BookBor bor
+        LEFT JOIN BookInfo b ON b.b_id=bor.b_id
+        WHERE u_id=#{0} AND bor_isReturn=#{1}
+    </select>
+
+    <select id="findNotReturnOnTime" resultMap="borBk">
+        SELECT bor.*, b.b_name, b.b_author, IF(bor.bor_shouldReturn>#{1}, '未逾期','已逾期')AS bor_notReturn FROM BookBor bor
+        LEFT JOIN BookInfo b ON bor.b_id=b.b_id
+        WHERE bor.u_id=#{0}
+    </select>
+
+</mapper>

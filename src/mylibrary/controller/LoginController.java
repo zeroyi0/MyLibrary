@@ -12,18 +12,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private LibraryService libraryService;
 
     @ResponseBody
     @PostMapping("/loginCheck")
@@ -52,15 +56,14 @@ public class LoginController {
     @PostMapping("/login")
     public String login(User user, HttpSession session) {
         // 必须再次校验
-        int result = loginService.check(user);
-        if (result != LoginStatus.SUCCESS) {
+        User userReal = loginService.findUserByName(user.getUserName());
+        if (userReal == null) {
             return "error";
         }
-        session.setAttribute("UserInfo", user);
-        return "library";
-//        return "forwrad:./loginCheck.do";
+        session.setAttribute("UserInfo", userReal);
+        return "redirect:./libraryHome.do";
+//        return "forward:./loginCheck.do";
     }
-
 
     @GetMapping("/logout")
     public String logout( HttpSession session) {

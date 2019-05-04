@@ -13,13 +13,13 @@ import java.util.List;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    private UserMapper loginMapper;
+    private UserMapper userMapper;
 
 //    private LoginMapper loginMapper = MybatisUtils.getMapper(LoginMapper.class);
 
     @Override
     public boolean findByUserName(String userName) {
-        User user = loginMapper.findUserByName(userName);
+        User user = userMapper.findUserByName(userName);
         if (user != null) {
             return true;
         }
@@ -27,13 +27,22 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public boolean findByUserName(String userName, String email) {
+        User user = findUserByName(userName);
+        if (email.equals(user.getEmail())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public User findUserByName(String userName) {
-        return null;
+        return userMapper.findUserByName(userName);
     }
 
     @Override
     public boolean findByUserId(Long userId) {
-        User user = loginMapper.findByUserId(userId);
+        User user = userMapper.findByUserId(userId);
         if (user != null) {
             return true;
         }
@@ -42,7 +51,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List findAllUser() {
-        List list = loginMapper.findAllUsers();
+        List list = userMapper.findAllUsers();
         if (list != null) {
             return list;
         }
@@ -51,7 +60,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public int check(User user) {
-        User dbUser = loginMapper.findUserByName(user.getUserName());
+        User dbUser = userMapper.findUserByName(user.getUserName());
         if (dbUser == null) {
             return LoginStatus.USER_NOT_EXIST;
         }
@@ -59,5 +68,10 @@ public class LoginServiceImpl implements LoginService {
             return LoginStatus.PASSWORD_WRONG;
         }
         return LoginStatus.SUCCESS;
+    }
+
+    @Override
+    public List findAllAdmin() {
+        return userMapper.findAllAdmin("管理员");
     }
 }

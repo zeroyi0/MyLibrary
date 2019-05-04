@@ -6,9 +6,13 @@ import java.util.List;
 
 public interface LibraryService {
 
-    public int borrowBkById(Long bookId);
-
     public Book findBkById(Long bookId);
 
-    public List quaryAllBook();
+    public int getPageNum();
+
+    public List quaryAllBook(Integer index);
+
+    public List searchBook(String condition, String content);
+
+    public boolean deleteBk(Long bookId);
 }

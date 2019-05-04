@@ -2,10 +2,11 @@ package mylibrary.model;
 
 import mylibrary.annotation.Table;
 
+import java.io.File;
+
 @Table("Book")
 public class Book {
-    // 条形码
-    // 13
+    // 条形码 13
     private Long bookId;
 
     private String bookName;
@@ -14,17 +15,23 @@ public class Book {
     // 出版社
     private String publisher;
 
+    private String createTime;
+
     private Double bookPrice;
     // 分类
     private String classify;
     // 书架
     private String bookShelf;
 
-    private Long bookISBN;
-
-    private String bookStatus;
+    private String bookISBN;
     // 入库时间
     private String enterLibTime;
+
+    private String bookInfo;
+    // 状态
+    private String bookStatus;
+
+    private String bookPicture;
 
     public Book() {}
 
@@ -60,6 +67,14 @@ public class Book {
         this.publisher = publisher;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
     public Double getBookPrice() {
         return bookPrice;
     }
@@ -84,12 +99,28 @@ public class Book {
         this.bookShelf = bookShelf;
     }
 
-    public Long getBookISBN() {
+    public String getBookISBN() {
         return bookISBN;
     }
 
-    public void setBookISBN(Long bookISBN) {
+    public void setBookISBN(String bookISBN) {
         this.bookISBN = bookISBN;
+    }
+
+    public String getEnterLibTime() {
+        return enterLibTime;
+    }
+
+    public void setEnterLibTime(String enterLibTime) {
+        this.enterLibTime = enterLibTime;
+    }
+
+    public String getBookInfo() {
+        return bookInfo;
+    }
+
+    public void setBookInfo(String bookInfo) {
+        this.bookInfo = bookInfo;
     }
 
     public String getBookStatus() {
@@ -100,11 +131,11 @@ public class Book {
         this.bookStatus = bookStatus;
     }
 
-    public String getEnterLibTime() {
-        return enterLibTime;
+    public String getBookPicture() {
+        return bookPicture;
     }
 
-    public void setEnterLibTime(String enterLibTime) {
-        this.enterLibTime = enterLibTime;
+    public void setBookPicture(String bookPicture) {
+        this.bookPicture = bookPicture;
     }
 }

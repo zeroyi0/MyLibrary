@@ -9,8 +9,7 @@
 <html>
 <head>
   <title>登录</title>
-  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-  <%--<script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>--%>
+  <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>
   <%--bootstrap--%>
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
@@ -73,7 +72,6 @@
                     }
                 }
             %>
-
             <input type="text"class="form-control" placeholder="输入账号" id="userName" name="userName" value="<%=userName%>">
           </div>
           <br>
@@ -96,8 +94,13 @@
       </div>
       <%-- 按钮 --%>
       <button onclick="login()" id="fat-btn" class="btn text-warning" data-loading-text="Loading..."
-              type="button" style="width: 80%; margin-left: 10% ; background-color: #FEF6D2; margin-bottom: 3%"> 登录
+              type="button" style="width: 80%; margin-left: 10% ; background-color: #FEF6D2; margin-bottom: 1%"> 登录
       </button>
+      <%-- 忘记密码 --%>
+      <div  style="margin-left: 74%;color: rosybrown; font-size: 13px">
+          <a href="/biandan/forgetPwd.jsp" style="text-decoration: none"> 忘记密码?</a>
+    </span>
+      </div>
     </div><%-- 面板 --%>
   </div><%-- 位置 --%>
 </body>

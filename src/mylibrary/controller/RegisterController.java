@@ -28,4 +28,12 @@ public class RegisterController {
                 return Result.Fail("未知错误");
         }
     }
+    @ResponseBody
+    @RequestMapping("/ident")
+    public Result ident(Long userId, String identity) {
+        if (registerService.chgIdentity(userId, identity)) {
+            return Result.OK("修改权限成功");
+        }
+        return Result.Fail("修改权限失败");
+    }
 }

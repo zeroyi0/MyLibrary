@@ -42,6 +42,7 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 
+    <!--<bean id="multipartResolver" class=""></bean>-->
 
 
 </beans>
