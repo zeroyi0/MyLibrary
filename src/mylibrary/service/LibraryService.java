@@ -15,4 +15,8 @@ public interface LibraryService {
     public List searchBook(String condition, String content);
 
     public boolean deleteBk(Long bookId);
+
+    public boolean changeBk(Book book);
+
+    public int addNewBk(Book book);
 }

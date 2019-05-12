@@ -87,7 +87,7 @@
                 <tr>
                     <td>${book.bookId}</td>
                     <td>${book.bookISBN}</td>
-                    <td>${book.bookName}</td>
+                    <td><a href="changeBkPage.do?bookId=${book.bookId}">${book.bookName}</a></td>
                     <td>${book.author}</td>
                     <td>${book.publisher}</td>
                     <td>${book.createTime}</td>
@@ -166,7 +166,7 @@
     page();
     // 当前页信息
     $(function (){
-        $("a").click(function () {
+        $(".pagination a").click(function () {
             var current = ${Current};
             var pageMax = ${PageNum};
             var index = $(this).text();

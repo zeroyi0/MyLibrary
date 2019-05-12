@@ -2,10 +2,7 @@ package mylibrary.service.Impl;
 
 import mylibrary.common.LibraryStatus;
 import mylibrary.dao.BookMapper;
-import mylibrary.dao.BorBkMapper;
 import mylibrary.model.Book;
-import mylibrary.model.BorBk;
-import mylibrary.model.User;
 import mylibrary.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,5 +57,26 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public boolean deleteBk(Long bookId) {
         return bookMapper.deleteBook(bookId);
+    }
+
+    @Override
+    public boolean changeBk(Book book) {
+        return bookMapper.updateBk(book);
+    }
+
+    @Override
+    public int addNewBk(Book book) {
+        // 图书ID已存在
+        if (bookMapper.findBookById(book.getBookId()) != null) {
+            return LibraryStatus.BOOKID_HAS_EXIST;
+        }
+        Date date = new Date();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String enterLibTime = df.format(date);
+        book.setEnterLibTime(enterLibTime);
+        if (bookMapper.addBook(book)) {
+            return LibraryStatus.BORROW_SUCCESS;
+        }
+        return LibraryStatus.BORROW_ERROR;
     }
 }

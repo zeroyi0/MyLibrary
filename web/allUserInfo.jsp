@@ -53,7 +53,7 @@
                     <td id="identity_${user.userId}">
                         <div class="btn-group">
                             <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
-                                <span id="user_${user.userId}" >${user.identity}</span>
+                                <span id="user_${user.userId}">${user.identity}</span>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">

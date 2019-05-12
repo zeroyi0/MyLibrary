@@ -102,42 +102,42 @@
             <tr><td></td></tr>
             <tr>
                 <td>图书ID：</td>
-                <td class="fixlength"><div id="bookId"></div></td>
+                <td class="fixlength"><div id="bookId">${book.bookId}</div></td>
                 <td></td>
                 <td>出版社：</td>
-                <td class="fixlength"><div id="publisher"></div></td>
+                <td class="fixlength"><div id="publisher">${book.publisher}</div></td>
                 <td></td>
             </tr>
             <tr>
                 <td>ISBN：</td>
-                <td><div id="bookISBN"></div></td>
+                <td><div id="bookISBN">${book.bookISBN}</div></td>
                 <td></td>
                 <td>出版日期：</td>
-                <td><div id="createTime"></div></td>
+                <td><div id="createTime">${book.createTime}</div></td>
                 <td></td>
             </tr>
             <tr>
                 <td>书名：</td>
-                <td><div id="bookName"></div></td>
+                <td><div id="bookName">${book.bookName}</div></td>
                 <td></td>
                 <td>分类：</td>
-                <td><div id="classify"></div></td>
+                <td><div id="classify">${book.classify}</div></td>
                 <td></td>
             </tr>
             <tr>
                 <td>作者：</td>
-                <td><div id="author"></div></td>
+                <td><div id="author">${book.author}</div></td>
                 <td></td>
                 <td>入库时间：</td>
-                <td><div id="enterLibTime"></div></td>
+                <td><div id="enterLibTime">${book.enterLibTime}</div></td>
                 <td></td>
             </tr>
             <tr>
                 <td>价格：</td>
-                <td><div id="bookPrice"></div></td>
+                <td><div id="bookPrice">${book.bookPrice}</div></td>
                 <td></td>
                 <td>状态：</td>
-                <td><div id="bookStatus"></div></td>
+                <td><div id="bookStatus">${book.bookStatus}</div></td>
                 <td></td>
             </tr>
             <tr>
@@ -145,7 +145,7 @@
             </tr>
             <tr>
                 <td colspan="5" style="width: 550px; height: 150px">
-                    <div id="bookInfo" class="bookInfo"></div></td>
+                    <div id="bookInfo" class="bookInfo">${book.bookInfo}</div></td>
             </tr>
             <tr>
                 <td></td>
@@ -171,7 +171,7 @@
 </body>
 <script>
     function searchBk() {
-        $("td div").html("");
+        // $("td div").html("");
         var bookId = $("#contents").val();
         console.log(bookId);
         $.ajax({

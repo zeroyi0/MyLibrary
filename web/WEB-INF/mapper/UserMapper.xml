@@ -16,8 +16,7 @@
     </resultMap>
 
     <insert id="addUser" parameterType="mylibrary.model.User">
-        INSERT INTO BookUser(u_name, u_sex, u_pwd, u_identity, u_mailBox, u_regTime)
-          VALUES(#{userName}, #{userSex}, #{passWord}, #{identity},#{email}, NOW())
+        INSERT INTO BookUser(u_name, u_sex, u_pwd, u_identity, u_mailBox, u_regTime) VALUES (#{userName}, #{userSex}, #{passWord}, #{identity}, #{email}, NOW())
     </insert>
 
     <update id="updateIdentity">

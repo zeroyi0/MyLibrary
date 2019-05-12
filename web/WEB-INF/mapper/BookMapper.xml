@@ -20,6 +20,19 @@
         <!-- 在类不在mysql -->
         <result property="bookStatus" column="b_status"></result>
     </resultMap>
+
+    <insert id="addBook"  parameterType="Book">
+          INSERT INTO BookInfo (b_id, b_name, b_author, b_publish, b_price, b_classify, b_ISBN, b_enterLibTime, b_createTime, b_info, b_pic)
+          VALUES (#{bookId}, #{bookName}, #{author}, #{publisher}, #{bookPrice}, #{classify}, #{bookISBN}, #{enterLibTime}, #{createTime}, #{bookInfo}, #{bookPicture})
+    </insert>
+
+    <update id="updateBk" parameterType="Book">
+        UPDATE BookInfo SET b_name=#{bookName},b_author=#{author}, b_publish=#{publisher},b_createTime=#{createTime},
+                            b_price=#{bookPrice},b_classify=#{classify},b_ISBN=#{bookISBN},
+                            b_enterLibTime=#{enterLibTime},b_createTime=#{createTime}, b_info=#{bookInfo}
+        WHERE b_id =#{bookId}
+    </update>
+
     <delete id="deleteBook">
         DELETE FROM BookInfo WHERE b_id=#{bookId}
     </delete>

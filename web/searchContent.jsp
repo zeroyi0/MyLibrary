@@ -27,7 +27,7 @@
             <tr>
                 <td>${book.bookId}</td>
                 <td>${book.bookISBN}</td>
-                <td>${book.bookName}</td>
+                <td><a href="borrowBkPage.do?bookId=${book.bookId}">${book.bookName}</a></td>
                 <td>${book.author}</td>
                 <td>${book.publisher}</td>
                 <td>${book.createTime}</td>

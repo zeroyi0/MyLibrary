@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Linfeng
@@ -103,8 +104,9 @@
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#">修改资料</a></li>
-                                    <li><a href="./logout.do">注销</a></li>
+                                    <%--<li><a href="#">修改资料</a></li>--%>
+                                    <li><a href="./logout.do">注销账号</a></li>
+                                    <li><a href="./logout.do">退出账号</a></li>
                                     <%-- 横线 --%>
                                     <%--<li class="divider"></li>--%>
                                 </ul>
@@ -133,18 +135,20 @@
             </div>
             <a href="./myBookInfo.do" class="list-group-item">历史借阅记录</a>
             <a href="./notReturnOnTime.do" class="list-group-item">逾期记录查询</a>
-            <div class="left-item">
-                图书管理
-            </div>
-            <a href="./allBookInfo.do" class="list-group-item">全部图书信息</a>
-            <a href="deleteBk.jsp" class="list-group-item">图书信息删除</a>
-            <a href="./changeBk.jsp" class="list-group-item">图书信息修改</a>
-            <a href="./addNewBk.jsp" class="list-group-item">增加新的图书</a>
-            <div class="left-item">
-                用户管理
-            </div>
-            <a href="./allUserInfo.do" target="centerText" class="list-group-item">全部用户信息</a>
-            <a href="./allAdminInfo.do" target="centerText" class="list-group-item">查看全部管理员</a>
+            <c:if test='${UserInfo.identity == "管理员" }'>
+                <div class="left-item">
+                    图书管理
+                </div>
+                <a href="./allBookInfo.do" class="list-group-item">全部图书信息</a>
+                <a href="deleteBk.jsp" class="list-group-item">图书信息删除</a>
+                <a href="./changeBk.jsp" class="list-group-item">图书信息修改</a>
+                <a href="./addNewBk.jsp" class="list-group-item">增加新的图书</a>
+                <div class="left-item">
+                    用户管理
+                </div>
+                <a href="./allUserInfo.do" class="list-group-item">全部用户信息</a>
+                <a href="./allAdminInfo.do" class="list-group-item">查看全部管理员</a>
+            </c:if>
 
         </div><%-- 左侧栏目 --%>
         <%-- 主内容 --%>
@@ -180,7 +184,7 @@
             $("#leftmenu a").removeClass('active');
             this.classList.add('active');
             // this 谁触发的就指谁
-            this.target = "centerText";
+            this.target="centerText";
             var display = $(this).html();
             // console.log(display);
             $("#displaymenu").text(display);

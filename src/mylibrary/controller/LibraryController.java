@@ -14,8 +14,12 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
@@ -53,6 +57,31 @@ public class LibraryController {
     private Long userId(HttpSession session) {
         User user = (User) session.getAttribute("UserInfo");
         return user.getUserId();
+    }
+
+    @RequestMapping({"/borrowBkPage","/changeBkPage"})
+    public ModelAndView bkPage(Long bookId, HttpServletRequest req) {
+//        System.out.println("路径1：" + req.getServletPath());
+//        System.out.println("路径2：" + req.getRequestURL());
+        ModelAndView mav = new ModelAndView();
+        Book book = libraryService.findBkById(bookId);
+        mav.addObject("book", book);
+        if (req.getServletPath().equals("/borrowBkPage.do")) {
+            mav.setViewName("borrowBook");
+        }else {
+            mav.setViewName("changeBk");
+        }
+        return mav;
+    }
+
+    @ResponseBody
+    @RequestMapping("/changeBk")
+    public Result changeBk(Book book) {
+        Long bookId = book.getBookId();
+        if (libraryService.changeBk(book)) {
+            return Result.OK("修改成功");
+        }
+        return Result.Fail("修改失败");
     }
 
     // 借书
@@ -291,5 +320,53 @@ public class LibraryController {
         // 发送
         transport.sendMessage(message, message.getAllRecipients());
     }
+
+    @ResponseBody
+    @PostMapping("addBook")
+    public Result addNewBk(Book book) {
+        int addResult = libraryService.addNewBk(book);
+        switch (addResult) {
+            case LibraryStatus.BORROW_SUCCESS: return Result.OK("添加成功");
+            case LibraryStatus.ADD_ERROR: return  Result.Fail("添加失败，未知错误");
+            case LibraryStatus.BOOKID_HAS_EXIST: return  Result.Fail("添加失败，图书ID已存在");
+            default: return Result.Fail("未知错误");
+        }
+    }
+    @ResponseBody
+    @PostMapping("addPic")
+    public Result upload(@RequestParam(value = "picture", required = false) CommonsMultipartFile file, HttpServletRequest request) throws IOException {
+        String savePath = null;
+        if (file != null) {
+            // 获取web的绝对路径（磁盘路径）
+            String webPath = request.getSession().getServletContext().getRealPath("/"); // 只有通过session才能获取到application,只有通过application才能找到web的路径
+            // 获取当前时间戳
+            long timestamp = System.currentTimeMillis();
+            // web路径 + 保存文件夹 + 时间戳 + 原文件名 = 保存文件的路径
+            savePath = webPath + "files/" + timestamp + file.getOriginalFilename();
+            System.out.println(savePath);
+            // 通过这个文件对象获取到保存的路径和文件名
+            File saveTo = new File(savePath);
+            // 保存至
+            file.transferTo(saveTo);
+            return Result.OK(savePath);
+        }
+        return Result.Fail("图片上传失败");
+    }
+//    @ResponseBody
+//    @PostMapping("upload")
+//    public String upload(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
+//        // 获取web的绝对路径（磁盘路径）
+//        String webPath = request.getSession().getServletContext().getRealPath("/");
+//        // 获取当前时间戳
+//        long timestamp = System.currentTimeMillis();
+//        // web路径 + 保存文件夹 + 时间戳 + 原文件名 = 保存文件的路径
+//        String savePath = webPath + "files/" + timestamp + file.getOriginalFilename();
+//        System.out.println(savePath);
+//        // 通过这个文件对象获取到保存的路径和文件名
+//        File saveTo = new File(savePath);
+//        // 保存至
+//        file.transferTo(saveTo);
+//        return "上传成功！";
+//    }
 
 }

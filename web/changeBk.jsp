@@ -41,11 +41,13 @@
         input {
             width: 90%;
             height: 28px;
+            padding-left: 10px;
             /*border-radius: 5px;*/
         }
         select {
             width: 90%;
             height: 28px;
+            padding-left: 10px;
         }
         textarea {
             width: 96%;
@@ -69,6 +71,13 @@
             padding-top: 13px !important;
             font-size: 16px;
         }
+        .fixlength {
+            border: 1px solid gray;
+            width: 90%;
+            height: 28px;
+            float: right;
+            padding-left: 10px;
+        }
 
     </style>
 </head>
@@ -80,10 +89,6 @@
                     <td>
                         <select name="" id="search">
                             <option value="userName">图书ID</option>
-                            <option value="userName">书名</option>
-                            <option value="author">作者</option>
-                            <option value="publisher">出版社</option>
-                            <option value="classify">类别</option>
                         </select>
                     </td>
                     <td>
@@ -98,42 +103,42 @@
                 <tr><td></td></tr>
                 <tr>
                     <td>图书ID：<span class="import">*</span></td>
-                    <td><input type="text"></td>
+                    <td style="text-align: left"><div id="bookId" class="fixlength">${book.bookId}</div></td>
                     <td></td>
                     <td>出版社：</td>
-                    <td><input type="text"></td>
+                    <td><input id="publisher" type="text" value="${book.publisher}"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>ISBN：</td>
-                    <td><input type="number"></td>
+                    <td><input id="bookISBN" type="number" value="${book.bookISBN}"></td>
                     <td></td>
                     <td>出版日期：</td>
-                    <td><input type="text"></td>
+                    <td><input id="createTime" type="text" value="${book.createTime}"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>书名：<span class="import">*</span></td>
-                    <td><input type="text"></td>
+                    <td><input id="bookName" type="text" value="${book.bookName}"></td>
                     <td></td>
                     <td>分类：</td>
-                    <td><input type="text"></td>
+                    <td><input id="classify" type="text" value="${book.classify}"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>作者：</td>
-                    <td><input type="text"></td>
+                    <td><input id="author" type="text" value="${book.author}"></td>
                     <td></td>
                     <td>入库时间：</td>
-                    <td><input type="text"></td>
+                    <td><input id="enterLibTime" type="text" value="${book.enterLibTime}"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>价格：</td>
-                    <td><input type="text"></td>
+                    <td><input id="bookPrice" type="text" value="${book.bookPrice}"></td>
                     <td></td>
                     <td>状态：</td>
-                    <td><select name="" id="">
+                    <td><select id="bookStatus" name="" value="${book.bookStatus}">
                         <option>在架上</option>
                         <option>已借出</option>
                     </select></td>
@@ -144,7 +149,7 @@
                 </tr>
                 <tr>
                     <td colspan="5">
-                        <textarea></textarea></td>
+                        <textarea id="bookInfo"> ${book.bookInfo}</textarea></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -160,12 +165,79 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <%--<td><button class="btn-info">继续添加下一本</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
-                    <%--<button class="btn-info">添加</button></td>--%>
-                    <td><button class="btn-info">确认修改</button>&nbsp;&nbsp;</td>
+                    <td><button onclick="changeBk()" class="btn-info">确认修改</button>&nbsp;&nbsp;</td>
                 </tr>
             </table>
         </div>
     </div>
 </body>
+<script>
+    function searchBk() {
+        // $("td input").html("");
+        var bookId = $("#contents").val();
+        console.log(bookId);
+        $.ajax({
+            url: "./borrowBkSearch.do",
+            type: "get",
+            data: {
+                bookId: bookId
+            },
+            success: function (res) {
+                console.log(res);
+                $("#bookId").html(res.bookId);
+                $("#publisher").val(res.publisher);
+                $("#bookISBN").val(res.bookISBN);
+                $("#createTime").val(res.createTime);
+                $("#bookName").val(res.bookName);
+                $("#classify").val(res.classify);
+                $("#author").val(res.author);
+                $("#enterLibTime").val(res.enterLibTime);
+                $("#bookPrice").val(res.bookPrice);
+                $("#bookStatus").val(res.bookStatus);
+                $("#bookInfo").html("&nbsp;&nbsp;&nbsp;&nbsp;" + res.bookInfo);
+            },
+            error: function () {
+                alert("error")
+            }
+        })
+    }
+    function changeBk() {
+        var bookId = $("#bookId").html();
+        var publisher = $("#publisher").val();
+        var bookISBN = $("#bookISBN").val();
+        var createTime = $("#createTime").val();
+        var bookName = $("#bookName").val();
+        var classify = $("#classify").val();
+        var author = $("#author").val();
+        var enterLibTime = $("#enterLibTime").val();
+        var bookPrice = $("#bookPrice").val();
+        var bookStatus = $("#bookStatus").val();
+        var bookInfo = $("#bookInfo").html();
+        console.log(bookId);
+        $.ajax({
+            url: "./changeBk.do",
+            type: "post",
+            data: {
+                bookId: bookId,
+                publisher: publisher,
+                bookISBN: bookISBN,
+                createTime: createTime,
+                bookName: bookName,
+                classify: classify,
+                author: author,
+                enterLibTime: enterLibTime,
+                bookPrice: bookPrice,
+                bookStatus: bookStatus,
+                bookInfo: bookInfo
+            },
+            success: function (res) {
+                alert(res.data)
+            },
+            error: function (res) {
+                console.log(res);
+                alert("系统错误，修改失败")
+            }
+        })
+    }
+</script>
 </html>

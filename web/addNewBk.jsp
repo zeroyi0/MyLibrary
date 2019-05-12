@@ -137,6 +137,19 @@
     </div>
 </body>
 <script>
+/*    // 根据文件生成临时URL
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) {
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) {
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) {
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }*/
+
     function addBook() {
         var bookId = $("#bookId").val();
         var publisher = $("#publisher").val();
@@ -147,30 +160,54 @@
         var author = $("#author").val();
         var enterLibTime = $("#enterLibTime").val();
         var bookPrice = $("#bookPrice").val();
-        var bookPicture = $("#bookPicture").val();
         var bookInfo = $("#bookInfo").val();
-        console.log(bookPicture);
+        // 文件实体
+        var picture = $("#bookPicture")[0].files;
+        console.log(picture);
+        // 要递交的文件对象
         var formData = new FormData();
-        formData.append("bookPicture", bookPicture);
+        formData.append("picture", picture[0]);
+
 
         $.ajax({
-            url: "./addBook.do",
+            url: "./addPic.do",
             type: "post",
             contentType: false,
             processData: false,
-            data: {
-                bookId: bookId,
-                publisher: publisher,
-                bookISBN: bookISBN,
-                createTime: createTime,
-                bookName: bookName,
-                classify: classify,
-                author: author,
-                enterLibTime: enterLibTime,
-                bookPrice: bookPrice ,
-                bookInfo: bookInfo ,
-
-                formData: formData
+            data: formData,
+            success: function (res) {
+                if (res.code != 200) {
+                    res.data = null
+                }
+                $.ajax({
+                    url: "./addBook.do",
+                    type: "post",
+                    data: {
+                        bookId: bookId,
+                        publisher: publisher,
+                        bookISBN: bookISBN,
+                        createTime: createTime,
+                        bookName: bookName,
+                        classify: classify,
+                        author: author,
+                        bookPrice: bookPrice,
+                        bookPicture: res.data,
+                        bookInfo: bookInfo
+                    },
+                    success: function (data) {
+                        if (res.data != null) {
+                            alert(data.data);
+                            return
+                        }
+                        alert(data.data + "图片上传失败")
+                    },
+                    error: function (data) {
+                        alert("未知错误")
+                    }
+                })
+            },
+            error: function (res) {
+                alert("error")
             }
         })
     }
