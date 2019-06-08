@@ -96,7 +96,7 @@
         <div id="header" style="background-color:#FEF6D2">
                 <div class="row">
                     <div class="container-fluid">
-                    <span class="libraryTitle">图书管理系统&nbsp;&nbsp;</span>
+                    <span class="libraryTitle">智能图书信息查询管理系统&nbsp;&nbsp;</span>
                         <ul class="nav navbar-nav navPostion" >
                             <li class="dropdown">
                                 <a href="#" data-toggle="dropdown">

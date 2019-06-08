@@ -36,7 +36,7 @@
         .pagination>li>a, .pagination>li>span {
             position: relative;
             float: left;
-            padding: 6px 25px;
+            padding: 6px 20.5px;
             margin-left: -1px;
             line-height: 1.42857143;
             color: #337ab7;
@@ -138,7 +138,7 @@
         // 最后一个页码
         if (current + last > pageMax) {
             for (var j = last + 1; j <= 6; j++) {
-                $("#" + j).html("END")
+                $("#" + j).html("end")
             }
             for  (var j = 1; j <= last; j++) {
                 $("#" + j).html(pageMax - last + j);
@@ -185,7 +185,7 @@
                         return;
                     }
                     index = current + 1; break;
-                case "END":
+                case "end":
                     alert("此页码不存在");
                     return;
                 case "跳转":

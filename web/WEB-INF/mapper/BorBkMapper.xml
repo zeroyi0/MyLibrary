@@ -64,7 +64,7 @@
     </select>
 
     <select id="findNotReturnOnTime" resultMap="borBk">
-        SELECT bor.*, b.b_name, b.b_author, IF(bor.bor_shouldReturn>#{1}, '未逾期','已逾期')AS bor_notReturn FROM BookBor bor
+        SELECT bor.*, b.b_name, b.b_author, IF(bor.bor_shouldReturn>#{1} OR bor.bor_isReturn='已归还', ' ','已逾期')AS bor_notReturn FROM BookBor bor
         LEFT JOIN BookInfo b ON bor.b_id=b.b_id
         WHERE bor.u_id=#{0}
     </select>
